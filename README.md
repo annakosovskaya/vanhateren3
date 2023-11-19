@@ -1,22 +1,21 @@
 # vanhateren
-Work with [Van Hateren's natural image database](https://pirsquared.org/research/vhatdb/imc/)
+Work with [Van Hateren's natural image database](https://pirsquared.org/research/vhatdb/imc/) Code works in Google Colab.
 
 ## Example
 
 ```python
 import vanhateren
 
-# Use the calibrated or uncalibrated dataset
+# Use the calibrated dataset
 vh = vanhateren.VanHateren(calibrated=True)
 
 # Get the first image (downloads automatically)
 image1 = vh.image(1)
 
-# Create 100 64x64 image patches (downloads first 10 images)
-patches = vh.patches(100, (64, 64))
-
-# Scale the patches to fall nicely in the range [-1, 1]
-patches = vh.preprocess.scale(patches)
+# Create num_of_patches patch_size image patches
+num_of_patches = int(2.4e6)
+patch_size = (3, 3)
+patches = vh.patches(num_of_patches, patch_size)
 ```
 
 To explicitly download more images or to download specific images,
