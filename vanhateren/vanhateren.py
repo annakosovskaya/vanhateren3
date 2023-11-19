@@ -26,7 +26,7 @@ class VanHateren(object):
 
     def __init__(self, calibrated=True):
         self.calibrated = calibrated
-        vanhateren_dir = os.path.expanduser("~/data/")
+        vanhateren_dir = os.path.expanduser("/content/data/")
         self.image_dir = os.path.join(vanhateren_dir, self.image_ext)
 
     @property
