@@ -1,12 +1,12 @@
 import os
 import re
-import urllib2
+import urllib.request  # Use urllib.request instead of urllib2
 
 import numpy as np
 
 
 def download(url, filename, mkdir=False, verbose=True):
-    page = urllib2.urlopen(url)
+    page = urllib.request.urlopen(url)  # Use urllib.request.urlopen instead of urllib2.urlopen
     data = page.read()
 
     dirname = os.path.dirname(filename)
@@ -65,7 +65,7 @@ class VanHateren(object):
         if overwrite or not os.path.exists(dest):
             try:
                 download(url, dest, mkdir=True, verbose=True)
-            except urllib2.HTTPError as e:
+            except urllib.error.HTTPError as e:  # Use urllib.error.HTTPError instead of urllib2.HTTPError
                 if e.code == 404:
                     raise ValueError(
                         "Image %d does not exist on the server" % i)
@@ -82,7 +82,7 @@ class VanHateren(object):
             self.download_image(i)
 
         with open(path, 'rb') as handle:
-           s = handle.read()
+            s = handle.read()
 
         img = np.fromstring(s, dtype='uint16').byteswap()
 
@@ -118,36 +118,6 @@ class VanHateren(object):
             patches[p] = images[k, i:i+shape[0], j:j+shape[1]]
 
         return patches
-
-    # def image(self, i, fullrange=True, log=False):
-    #     filename = self.get_filename(i)
-    #     with open(filename, 'rb') as handle:
-    #        s = handle.read()
-
-    #     img = np.fromstring(s, dtype='uint16').byteswap()
-
-    #     if log:
-    #         img = np.log1p(img)
-    #     else:
-    #         img = img.astype(float)
-
-    #     img -= img.mean()
-    #     img /= 6 * img.std()
-    #     img += 0.5
-    #     img[img < 0] = 0
-    #     img[img > 1] = 1
-    #     return img.reshape(self.imshape)
-
-    #     if fullrange:  # ensure range of this image is [0, 1]
-    #         immax = float(img.max())
-    #         img = img / immax
-    #         # immin = float(img.min())
-    #         # img = (img - immin) / (immax - immin)
-    #     else:
-    #         img = (img / 6282.0).clip(0,1)
-
-    #     img = img.reshape(self.imshape)
-    #     return img
 
 
 def test_image_list():
