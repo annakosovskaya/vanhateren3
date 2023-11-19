@@ -22,11 +22,11 @@ def download(url, filename, mkdir=False, verbose=True):
 class VanHateren(object):
 
     imshape = (1024, 1536)
-    base_url = "http://cin-11.medizin.uni-tuebingen.de:61280/vanhateren/"
+    base_url = "https://pirsquared.org/research/vhatdb/"
 
     def __init__(self, calibrated=True):
         self.calibrated = calibrated
-        vanhateren_dir = os.path.expanduser("~/data/vanhateren/")
+        vanhateren_dir = os.path.expanduser("~/data/")
         self.image_dir = os.path.join(vanhateren_dir, self.image_ext)
 
     @property
